@@ -1,23 +1,30 @@
 var Series = React.createClass({
 
     propTypes: { 
-        series: React.PropTypes.object.isRequired, 
+        items: React.PropTypes.array.isRequired, 
     },
-    
-    render: function() { 
-        return (
-            React.createElement('li', {key: this.props.series.id}, 
-                React.createElement('h2', {}, this.props.series.title),
-                React.createElement('p', {}, this.props.series.desc),
-                React.createElement('img', {src: this.props.series.img})
 
+    render: function() { 
+        var series = this.props.items.map(function(serial){
+            
+            return (
+                React.createElement('li', {key: serial.id}, 
+                    React.createElement('h2', {}, serial.title),
+                    React.createElement('p', {},serial.desc),
+                    React.createElement('img', {src: serial.img})
+
+                )
             )
-        )
-    },
+        });
+
+        return (
+            React.createElement('ul', {className: 'seriesList'}, series)
+        );
+    }
 
 });
 
-var series = [
+var items = [
     {
         id: 1,
         title: 'Breaking Bad',
@@ -45,8 +52,5 @@ var series = [
     }
 ];
 
-var element = React.createElement(Series, {key: series.id, series: series[0] });
-// nie wiem jak to zrobic. wyswietlaja mi sie rozne filmy w zalznosci od numeru elementu tablicy ale neiwiem jak to uzaleznic od zmiennej. 
-//nie wiem dlaczego series[series.id] nie dziala.
-
+var element = React.createElement(Series, {items:items});
 ReactDOM.render(element, document.getElementById('app'));
