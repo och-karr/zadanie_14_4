@@ -1,4 +1,4 @@
-var Series = React.createClass({
+var SerialList = React.createClass({
 
     propTypes: { 
         items: React.PropTypes.array.isRequired, 
@@ -8,20 +8,69 @@ var Series = React.createClass({
         var series = this.props.items.map(function(serial){
             
             return (
-                React.createElement('li', {key: serial.id}, 
-                    React.createElement('h2', {}, serial.title),
-                    React.createElement('p', {},serial.desc),
-                    React.createElement('img', {src: serial.img})
-
-                )
+                React.createElement(Serial, {key: serial.id})
             )
         });
 
         return (
-            React.createElement('ul', {className: 'seriesList'}, series)
+            React.createElement('ul', {className: 'serialList'}, series)
         );
     }
 
+});
+
+var Serial  = React.createClass({
+
+    propTypes: { 
+        serial: React.Proptypes.object.isRequired, 
+    },
+
+    render: function() { 
+            
+        return (
+                React.createElement('li', {},
+                    React.createElement(SerialTitle, {title: this.props.serial.title}),
+                    React.createElement(SerialDesc, {desc: this.props.serial.title}),
+                    React.createElement(SerialImg, {src: this.props.serial.img})
+                )
+        )       
+    }
+});
+
+var SerialTitle = React.createClass({
+    propTypes: {
+        title: React.PropTypes.string.isRequired,
+    },
+
+    render: function() {
+        return (
+            React.createElement('h2', {}, this.props.title)
+        )
+    }
+});
+
+var SerialDesc = React.createClass({
+    propTypes: {
+        title: React.PropTypes.string.isRequired,
+    },
+
+    render: function() {
+        return (
+            React.createElement('p', {}, this.props.desc)
+        )
+    }
+});
+
+var SerialImg = React.createClass({
+    propTypes: {
+        img: React.PropTypes.object.isRequired,
+    },
+
+    render: function() {
+        return (
+            React.createElement('img', {src: this.props.img})
+        )
+    }
 });
 
 var items = [
@@ -52,5 +101,5 @@ var items = [
     }
 ];
 
-var element = React.createElement(Series, {items:items});
+var element = React.createElement(SerialList, {items:items});
 ReactDOM.render(element, document.getElementById('app'));
