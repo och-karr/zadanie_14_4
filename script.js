@@ -1,3 +1,31 @@
+var items = [
+    {
+        id: 1,
+        title: 'Breaking Bad',
+        desc: 'Serial o historii dilera narkotyków',
+        img: './images/bb-v.jpg'
+    },
+    {
+        id: 2,
+        title: 'Gra o tron',
+        desc: 'Serial o losach siedmiu królestw',
+        img: './images/got-v.jpg'
+    },
+    {
+        id: 3,
+        title: 'Peaky blinders',
+        desc: 'Serial o losach gangsterskiej rodziny z Birmingham',
+        img: './images/peaky-v.jpg'
+
+    },
+    {
+        id: 4,
+        title: 'Stranger things',
+        desc: 'Serial o przygodach grupy dzieci',
+        img: './images/stranger-things.jpg'
+    }
+];
+
 var SerialList = React.createClass({
 
     propTypes: { 
@@ -8,7 +36,7 @@ var SerialList = React.createClass({
         var series = this.props.items.map(function(serial){
             
             return (
-                React.createElement(Serial, {key: serial.id})
+                React.createElement(Serial, {key: serial.id, serial: serial})
             )
         });
 
@@ -22,7 +50,7 @@ var SerialList = React.createClass({
 var Serial  = React.createClass({
 
     propTypes: { 
-        serial: React.Proptypes.object.isRequired, 
+    serial: React.PropTypes.object.isRequired
     },
 
     render: function() { 
@@ -30,8 +58,8 @@ var Serial  = React.createClass({
         return (
                 React.createElement('li', {},
                     React.createElement(SerialTitle, {title: this.props.serial.title}),
-                    React.createElement(SerialDesc, {desc: this.props.serial.title}),
-                    React.createElement(SerialImg, {src: this.props.serial.img})
+                    React.createElement(SerialDesc, {desc: this.props.serial.desc}),
+                    React.createElement(SerialImg, {img: this.props.serial.img})
                 )
         )       
     }
@@ -73,33 +101,6 @@ var SerialImg = React.createClass({
     }
 });
 
-var items = [
-    {
-        id: 1,
-        title: 'Breaking Bad',
-        desc: 'Serial o historii dilera narkotyków',
-        img: './images/bb-v.jpg'
-    },
-    {
-        id: 2,
-        title: 'Gra o tron',
-        desc: 'Serial o losach siedmiu królestw',
-        img: './images/got-v.jpg'
-    },
-    {
-        id: 3,
-        title: 'Peaky blinders',
-        desc: 'Serial o losach gangsterskiej rodziny z Birmingham',
-        img: './images/peaky-v.jpg'
-
-    },
-    {
-        id: 4,
-        title: 'Stranger things',
-        desc: 'Serial o przygodach grupy dzieci',
-        img: './images/stranger-things.jpg'
-    }
-];
 
 var element = React.createElement(SerialList, {items:items});
 ReactDOM.render(element, document.getElementById('app'));
